@@ -20,7 +20,7 @@ const login = async (req, res) => {
         }
 
 
-        let isPasswordCorrect = await bcrypt.compare(password, user.password)
+        let isPasswordCorrect = await bcryptjs.compare(password, user.password)
 
         if (isPasswordCorrect) {
             let token = crypto.randomBytes(20).toString("hex");
@@ -48,7 +48,7 @@ const register = async (req, res) => {
             return res.status(httpStatus.FOUND).json({ message: "User already exists" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 10);
 
         const newUser = new User({
             name: name,
