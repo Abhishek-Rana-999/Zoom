@@ -28,7 +28,26 @@ const start = async () => {
 
     console.log(`MONGO Connected DB HOst: ${connectionDb.connection.host}`)
     server.listen(app.get("port"), () => {
-        console.log("LISTENIN ON PORT 8000")
+        const PORT = process.env.PORT || 8000;
+
+const start = async () => {
+    try {
+        const connectionDb = await mongoose.connect(process.env.MONGO_URI);
+
+        console.log(`MONGO Connected DB Host: ${connectionDb.connection.host}`);
+
+        server.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Server failed to start:", error);
+        process.exit(1);
+    }
+};
+
+start();
+
     });
 
 
